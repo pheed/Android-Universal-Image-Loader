@@ -26,7 +26,7 @@ import android.widget.ImageView;
  */
 public final class SimpleBitmapDisplayer implements BitmapDisplayer {
 	@Override
-	public Bitmap display(Bitmap bitmap, ImageView imageView) {
+	public Bitmap display(Bitmap bitmap, ImageView imageView, boolean fromCache) {
 		imageView.setImageBitmap(bitmap);
 		return bitmap;
 	}

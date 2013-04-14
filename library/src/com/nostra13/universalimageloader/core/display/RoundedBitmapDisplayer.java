@@ -46,7 +46,7 @@ public class RoundedBitmapDisplayer implements BitmapDisplayer {
 	}
 
 	@Override
-	public Bitmap display(Bitmap bitmap, ImageView imageView) {
+	public Bitmap display(Bitmap bitmap, ImageView imageView, boolean fromCache) {
 		Bitmap roundedBitmap = roundCorners(bitmap, imageView, roundPixels);
 		imageView.setImageBitmap(roundedBitmap);
 		return roundedBitmap;

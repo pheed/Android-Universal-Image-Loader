@@ -32,7 +32,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public final class FakeBitmapDisplayer implements BitmapDisplayer {
 	@Override
-	public Bitmap display(Bitmap bitmap, ImageView imageView) {
+	public Bitmap display(Bitmap bitmap, ImageView imageView, boolean fromCache) {
 		// Do nothing
 		return bitmap;
 	}

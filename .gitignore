@@ -22,3 +22,6 @@ release.properties
 *.iws
 .idea/
 out/
+
+library/tmp/
+.DS_Store

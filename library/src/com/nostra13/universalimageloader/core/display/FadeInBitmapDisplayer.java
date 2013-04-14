@@ -29,16 +29,25 @@ import android.widget.ImageView;
 public class FadeInBitmapDisplayer implements BitmapDisplayer {
 
 	private final int durationMillis;
+    private final boolean fadeInFromCache;
 
 	public FadeInBitmapDisplayer(int durationMillis) {
 		this.durationMillis = durationMillis;
+        this.fadeInFromCache = true;
 	}
 
-	@Override
-	public Bitmap display(Bitmap bitmap, ImageView imageView) {
+    public FadeInBitmapDisplayer(int durationMillis, boolean fadeInFromCache) {
+        this.durationMillis = durationMillis;
+        this.fadeInFromCache = fadeInFromCache;
+    }
+
+    @Override
+	public Bitmap display(Bitmap bitmap, ImageView imageView, boolean fromCache) {
 		imageView.setImageBitmap(bitmap);
 
-		animate(imageView, durationMillis);
+        if (!fromCache || this.fadeInFromCache){
+		    animate(imageView, durationMillis);
+        }
 
 		return bitmap;
 	}
