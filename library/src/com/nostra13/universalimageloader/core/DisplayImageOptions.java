@@ -72,6 +72,7 @@ public final class DisplayImageOptions {
 	private final BitmapProcessor preProcessor;
 	private final BitmapProcessor postProcessor;
 	private final BitmapDisplayer displayer;
+	private final BitmapDisplayer cachedDisplayer;
 	private final Handler handler;
 
 	private DisplayImageOptions(Builder builder) {
@@ -88,6 +89,7 @@ public final class DisplayImageOptions {
 		preProcessor = builder.preProcessor;
 		postProcessor = builder.postProcessor;
 		displayer = builder.displayer;
+        cachedDisplayer = builder.cachedDisplayer;
 		handler = builder.handler;
 	}
 
@@ -167,7 +169,11 @@ public final class DisplayImageOptions {
 		return displayer;
 	}
 
-	public Handler getHandler() {
+    public BitmapDisplayer getCachedDisplayer() {
+        return cachedDisplayer;
+    }
+
+    public Handler getHandler() {
 		return (handler == null ? new Handler() : handler);
 	}
 
@@ -190,6 +196,7 @@ public final class DisplayImageOptions {
 		private BitmapProcessor preProcessor = null;
 		private BitmapProcessor postProcessor = null;
 		private BitmapDisplayer displayer = DefaultConfigurationFactory.createBitmapDisplayer();
+		private BitmapDisplayer cachedDisplayer = DefaultConfigurationFactory.createBitmapDisplayer();
 		private Handler handler = null;
 
 		public Builder() {
@@ -312,6 +319,15 @@ public final class DisplayImageOptions {
 		 */
 		public Builder displayer(BitmapDisplayer displayer) {
 			this.displayer = displayer;
+			return this;
+		}
+
+		/**
+		 * Sets custom {@link BitmapDisplayer displayer} for image loading from CACHE task. Default value -
+		 * {@link DefaultConfigurationFactory#createBitmapDisplayer()}
+		 */
+		public Builder cachedDisplayer(BitmapDisplayer displayer) {
+			this.cachedDisplayer = displayer;
 			return this;
 		}
 

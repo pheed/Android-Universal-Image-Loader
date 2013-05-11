@@ -216,7 +216,8 @@ public class ImageLoader {
 				ProcessAndDisplayImageTask displayTask = new ProcessAndDisplayImageTask(engine, bmp, imageLoadingInfo, options.getHandler());
 				engine.submit(displayTask);
 			} else {
-				options.getDisplayer().display(bmp, imageView, true);
+				options.getCachedDisplayer().display(bmp, imageView, true);
+//				options.getDisplayer().display(bmp, imageView, true);
 				listener.onLoadingComplete(uri, imageView, bmp);
 			}
 		} else {
