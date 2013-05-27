@@ -37,12 +37,14 @@ class ProcessAndDisplayImageTask implements Runnable {
 	private final Bitmap bitmap;
 	private final ImageLoadingInfo imageLoadingInfo;
 	private final Handler handler;
+	private boolean fromCache;
 
-	public ProcessAndDisplayImageTask(ImageLoaderEngine engine, Bitmap bitmap, ImageLoadingInfo imageLoadingInfo, Handler handler) {
+	public ProcessAndDisplayImageTask(ImageLoaderEngine engine, Bitmap bitmap, ImageLoadingInfo imageLoadingInfo, Handler handler, boolean fromCache) {
 		this.engine = engine;
 		this.bitmap = bitmap;
 		this.imageLoadingInfo = imageLoadingInfo;
 		this.handler = handler;
+		this.fromCache = fromCache;
 	}
 
 	@Override
@@ -53,6 +55,6 @@ class ProcessAndDisplayImageTask implements Runnable {
 		if (processedBitmap != bitmap) {
 			bitmap.recycle();
 		}
-		handler.post(new DisplayBitmapTask(processedBitmap, imageLoadingInfo, engine));
+		handler.post(new DisplayBitmapTask(processedBitmap, imageLoadingInfo, engine, fromCache));
 	}
 }

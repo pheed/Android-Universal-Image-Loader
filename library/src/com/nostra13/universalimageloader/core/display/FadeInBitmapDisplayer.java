@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+
 package com.nostra13.universalimageloader.core.display;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -28,13 +30,8 @@ import android.widget.ImageView;
  */
 public class FadeInBitmapDisplayer implements BitmapDisplayer {
 
-	private final int durationMillis;
-    private final boolean fadeInFromCache;
-
-	public FadeInBitmapDisplayer(int durationMillis) {
-		this.durationMillis = durationMillis;
-        this.fadeInFromCache = true;
-	}
+    private final int durationMillis;
+    private boolean fadeInFromCache = false;
 
     public FadeInBitmapDisplayer(int durationMillis, boolean fadeInFromCache) {
         this.durationMillis = durationMillis;
@@ -42,27 +39,27 @@ public class FadeInBitmapDisplayer implements BitmapDisplayer {
     }
 
     @Override
-	public Bitmap display(Bitmap bitmap, ImageView imageView, boolean fromCache) {
-		imageView.setImageBitmap(bitmap);
+    public Bitmap display(Bitmap bitmap, ImageView imageView, boolean fromCache) {
+        imageView.setImageBitmap(bitmap);
 
-        if (!fromCache || this.fadeInFromCache){
-		    animate(imageView, durationMillis);
+        if (!fromCache && !fadeInFromCache) {
+            animate(imageView, durationMillis);
         }
 
-		return bitmap;
-	}
+        return bitmap;
+    }
 
-	/**
-	 * Animates {@link ImageView} with "fade-in" effect
-	 * 
-	 * @param imageView {@link ImageView} which display image in
-	 * @param durationMillis The length of the animation in milliseconds
-	 */
-	public static void animate(ImageView imageView, int durationMillis) {
-		AlphaAnimation fadeImage = new AlphaAnimation(0, 1);
-		fadeImage.setDuration(durationMillis);
-		fadeImage.setInterpolator(new DecelerateInterpolator());
-		imageView.startAnimation(fadeImage);
-	}
+    /**
+     * Animates {@link ImageView} with "fade-in" effect
+     * 
+     * @param imageView {@link ImageView} which display image in
+     * @param durationMillis The length of the animation in milliseconds
+     */
+    public static void animate(ImageView imageView, int durationMillis) {
+        AlphaAnimation fadeImage = new AlphaAnimation(0, 1);
+        fadeImage.setDuration(durationMillis);
+        fadeImage.setInterpolator(new DecelerateInterpolator());
+        imageView.startAnimation(fadeImage);
+    }
 
 }
